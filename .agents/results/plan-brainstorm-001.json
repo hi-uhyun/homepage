@@ -1,0 +1,307 @@
+{
+  "project_name": "Hiuhyun Portfolio Homepage",
+  "description": "프리랜서 성우/배우/가수 포트폴리오 홈페이지. 성우 신뢰를 앞세우고 다양성을 얹는 구조. SEO 검색 유입 + 직접 링크 공유 커버.",
+  "tech_stack": {
+    "frontend": "Next.js 15 (App Router) + Tailwind CSS v4 + TypeScript",
+    "backend": "없음 (정적 사이트, JSON 기반)",
+    "database": "없음 (JSON 파일)",
+    "infrastructure": "Vercel (배포) + Cloudflare (도메인/DNS)",
+    "analytics": "Google Analytics + Google Search Console + Vercel Analytics",
+    "i18n": "next-intl (한국어 + 영어)"
+  },
+  "architecture_decisions": [
+    {
+      "decision": "정적 사이트 + JSON 기반 콘텐츠 관리",
+      "rationale": "DB 없이 JSON 파일만으로 포트폴리오 관리. AI 에이전트/GitHub 협업으로 수정. SEO 최적화에 유리한 정적 생성.",
+      "alternatives_considered": ["Headless CMS (Notion/Contentful)", "Wix/Squarespace"]
+    },
+    {
+      "decision": "Calendly 임베드 + 카카오톡 리다이렉트",
+      "rationale": "iCloud 캘린더 연동으로 실시간 가용 시간 표시. 예약 완료 시 카톡 오픈채팅으로 리다이렉트하여 직접 소통.",
+      "alternatives_considered": ["직접 캘린더 UI 구현 + Google Calendar API", "단순 문의 폼"]
+    },
+    {
+      "decision": "next-intl로 i18n 처리",
+      "rationale": "한국어/영어 2개 언어. App Router와 호환성 좋고 정적 생성 지원.",
+      "alternatives_considered": ["next-i18next", "수동 라우팅"]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "agent": "frontend",
+      "title": "프로젝트 초기 설정",
+      "description": "Next.js 15 App Router + Tailwind CSS + TypeScript 프로젝트 생성. 폴더 구조, ESLint, Prettier 설정. next-intl 기본 설정 (ko/en).",
+      "priority": 1,
+      "dependencies": [],
+      "estimated_complexity": "medium",
+      "acceptance_criteria": [
+        "Next.js 15 App Router 프로젝트 생성 완료",
+        "Tailwind CSS v4 설정 완료",
+        "TypeScript strict mode 활성화",
+        "next-intl 한국어/영어 라우팅 동작",
+        "ESLint + Prettier 설정",
+        "폴더 구조: app/[locale]/, components/, data/, lib/, public/"
+      ],
+      "scope": ["app/", "tailwind.config.*", "next.config.*", "tsconfig.json", "package.json", ".eslintrc.*", "i18n/", "messages/"]
+    },
+    {
+      "id": "task-2",
+      "agent": "frontend",
+      "title": "데이터 스키마 + JSON 파일 구조",
+      "description": "포트폴리오, 프로필, 스케줄 데이터의 TypeScript 타입 정의와 JSON 파일 생성. 샘플 데이터 포함.",
+      "priority": 1,
+      "dependencies": [],
+      "estimated_complexity": "low",
+      "acceptance_criteria": [
+        "data/portfolio.json — 카테고리(voice-acting/acting/singing), 톤 태그, 유튜브 URL, 썸네일, 제목, isFeatured",
+        "data/profile.json — 이름, 소개, 경력, 수상, 미디어 클리핑, SNS 링크, 카카오톡 오픈채팅 URL",
+        "data/schedule.json — 공개 일정(공연/행사)",
+        "TypeScript 타입 정의 (lib/types.ts)",
+        "한국어/영어 샘플 데이터 포함"
+      ],
+      "scope": ["data/", "lib/types.ts"]
+    },
+    {
+      "id": "task-3",
+      "agent": "frontend",
+      "title": "공통 레이아웃 + 네비게이션",
+      "description": "헤더(로고/네비게이션/언어 전환), 푸터(SNS 링크/카카오톡), 반응형 레이아웃. 모바일 햄버거 메뉴.",
+      "priority": 2,
+      "dependencies": ["task-1", "task-2"],
+      "estimated_complexity": "medium",
+      "acceptance_criteria": [
+        "헤더: 이름/로고 + 네비게이션(About, Portfolio, Schedule, Contact) + 언어 전환(KO/EN)",
+        "모바일: 햄버거 메뉴",
+        "푸터: SNS 링크 + 카카오톡 오픈채팅 버튼 + 이메일(백업)",
+        "375px ~ 1440px 반응형",
+        "한국어/영어 전환 동작"
+      ],
+      "scope": ["app/[locale]/layout.tsx", "components/layout/"]
+    },
+    {
+      "id": "task-4",
+      "agent": "frontend",
+      "title": "메인 페이지 (/) — Hero + About 요약",
+      "description": "매거진형 Hero 섹션(이름 + 한줄 소개 + 데모 릴 유튜브 임베드) + About 요약(프로필 사진 + 주요 경력). 유튜브 URL은 JSON에서 교체 가능.",
+      "priority": 2,
+      "dependencies": ["task-1", "task-2"],
+      "estimated_complexity": "medium",
+      "acceptance_criteria": [
+        "Hero: 이름 + 한 줄 소개 텍스트 + 유튜브 임베드 (data/profile.json의 demoReelUrl)",
+        "유튜브 임베드 lazy loading 적용",
+        "About 요약: 프로필 사진 + '광고 300편+ 프로 성우, 배우, 가수' + 주요 경력 리스트",
+        "매거진형 비주얼 임팩트 (큰 타이포, 여백 활용)",
+        "반응형 (모바일 우선)"
+      ],
+      "scope": ["app/[locale]/page.tsx", "components/home/"]
+    },
+    {
+      "id": "task-5",
+      "agent": "frontend",
+      "title": "메인 페이지 (/) — Portfolio Preview + Schedule + Contact",
+      "description": "카테고리별 대표작 3개 미리보기, 다가오는 일정, 카카오톡 연락처 섹션.",
+      "priority": 2,
+      "dependencies": ["task-1", "task-2"],
+      "estimated_complexity": "medium",
+      "acceptance_criteria": [
+        "Portfolio Preview: 광고/연기/노래 각 대표작 3개 (isFeatured), 썸네일 + 제목, 클릭 시 /portfolio로 이동",
+        "Schedule 미리보기: data/schedule.json에서 다가오는 일정 2-3개 표시",
+        "Contact: 카카오톡 오픈채팅 버튼 + SNS 아이콘 링크 + 이메일",
+        "각 섹션 간 시각적 구분"
+      ],
+      "scope": ["app/[locale]/page.tsx", "components/home/"]
+    },
+    {
+      "id": "task-6",
+      "agent": "frontend",
+      "title": "/portfolio 포트폴리오 페이지",
+      "description": "카테고리 필터(광고/연기/노래) + 광고 내 톤별 서브필터(도도한/다정한/내레이션 등). 유튜브 임베드 그리드.",
+      "priority": 2,
+      "dependencies": ["task-1", "task-2"],
+      "estimated_complexity": "high",
+      "acceptance_criteria": [
+        "카테고리 탭/필터: 전체 | 광고 | 연기 | 노래/공연",
+        "광고 선택 시 톤별 서브필터: 도도한 | 다정한 | 내레이션 | 기타",
+        "그리드 레이아웃: 썸네일 + 제목 + 카테고리 태그",
+        "클릭 시 유튜브 임베드 모달 또는 인라인 재생",
+        "data/portfolio.json에서 데이터 로드",
+        "반응형 그리드 (모바일 1열, 태블릿 2열, 데스크톱 3열)"
+      ],
+      "scope": ["app/[locale]/portfolio/", "components/portfolio/"]
+    },
+    {
+      "id": "task-7",
+      "agent": "frontend",
+      "title": "/about 상세 프로필 페이지",
+      "description": "상세 이력, 수상, 데모 릴 풀버전, 언론/미디어 클리핑.",
+      "priority": 2,
+      "dependencies": ["task-1", "task-2"],
+      "estimated_complexity": "medium",
+      "acceptance_criteria": [
+        "상세 프로필: 사진 + 이름 + 상세 소개",
+        "경력/이력 타임라인 또는 리스트",
+        "수상 내역",
+        "데모 릴 풀버전 유튜브 임베드",
+        "언론/미디어 클리핑 섹션 (링크 + 제목 + 매체명)",
+        "반응형"
+      ],
+      "scope": ["app/[locale]/about/", "components/about/"]
+    },
+    {
+      "id": "task-8",
+      "agent": "frontend",
+      "title": "/schedule 일정 페이지 (Calendly 임베드 + 카톡 리다이렉트)",
+      "description": "Calendly 위젯 임베드. 예약 완료 이벤트 감지 후 카카오톡 오픈채팅으로 리다이렉트 (선택 날짜/시간 포함).",
+      "priority": 2,
+      "dependencies": ["task-1"],
+      "estimated_complexity": "high",
+      "acceptance_criteria": [
+        "Calendly inline 위젯 임베드 (iframe)",
+        "iCloud 캘린더 연동은 Calendly 설정에서 처리 (문서화)",
+        "JavaScript로 Calendly 'calendly.event_scheduled' 메시지 감지",
+        "예약 완료 시 카카오톡 오픈채팅 URL로 리다이렉트 (날짜/시간 파라미터 포함)",
+        "공개 일정(공연/행사)은 data/schedule.json에서 별도 표시",
+        "반응형"
+      ],
+      "scope": ["app/[locale]/schedule/", "components/schedule/"]
+    },
+    {
+      "id": "task-9",
+      "agent": "frontend",
+      "title": "SEO + 메타 태그 + JSON-LD",
+      "description": "각 페이지별 메타 태그, Open Graph, JSON-LD 구조화 데이터. sitemap.xml, robots.txt 생성.",
+      "priority": 3,
+      "dependencies": ["task-4", "task-5", "task-6", "task-7", "task-8"],
+      "estimated_complexity": "medium",
+      "acceptance_criteria": [
+        "각 페이지 고유 title/description 메타 태그 (한/영)",
+        "Open Graph 태그 (SNS 공유 시 미리보기)",
+        "JSON-LD: Person 스키마 (성우/배우/가수), 포트폴리오 VideoObject",
+        "sitemap.xml 자동 생성 (한/영 alternate)",
+        "robots.txt",
+        "키워드 전략: '광고 성우', '성우 섭외', '내레이션 성우', 'Korean voice actor'"
+      ],
+      "scope": ["app/[locale]/layout.tsx", "app/sitemap.ts", "app/robots.ts", "lib/seo.ts"]
+    },
+    {
+      "id": "task-10",
+      "agent": "frontend",
+      "title": "Analytics 설정 (GA + Vercel Analytics)",
+      "description": "Google Analytics 4 + Google Search Console + Vercel Analytics 설정.",
+      "priority": 3,
+      "dependencies": ["task-1"],
+      "estimated_complexity": "low",
+      "acceptance_criteria": [
+        "Google Analytics 4 스크립트 삽입 (환경변수로 ID 관리)",
+        "Vercel Analytics 패키지 설치 + 활성화",
+        "Google Search Console 연동 준비 (메타 태그 또는 DNS 인증)",
+        "개발 환경에서는 Analytics 비활성화"
+      ],
+      "scope": ["app/[locale]/layout.tsx", "lib/analytics.ts", ".env.example"]
+    },
+    {
+      "id": "task-11",
+      "agent": "frontend",
+      "title": "Vercel 배포 + Cloudflare 도메인 연동",
+      "description": "Vercel 프로젝트 생성, 환경변수 설정, Cloudflare DNS 연동, 배포 파이프라인 확인.",
+      "priority": 3,
+      "dependencies": ["task-9", "task-10"],
+      "estimated_complexity": "low",
+      "acceptance_criteria": [
+        "Vercel 프로젝트 생성 + GitHub 레포 연결",
+        "환경변수 설정 (GA_ID 등)",
+        "Cloudflare DNS에 Vercel CNAME 레코드 추가",
+        "커스텀 도메인으로 HTTPS 접속 확인",
+        "push → 자동 배포 동작 확인"
+      ],
+      "scope": ["vercel.json"]
+    },
+    {
+      "id": "task-12",
+      "agent": "qa",
+      "title": "최종 QA — 성능 + 접근성 + 크로스 브라우저",
+      "description": "Lighthouse 점수 확인, 접근성, 반응형, 크로스 브라우저 테스트.",
+      "priority": 4,
+      "dependencies": ["task-11"],
+      "estimated_complexity": "medium",
+      "acceptance_criteria": [
+        "Lighthouse: Performance > 90, Accessibility > 90, SEO > 90",
+        "모바일(375px), 태블릿(768px), 데스크톱(1440px) 확인",
+        "Chrome, Safari, Firefox 동작 확인",
+        "유튜브 임베드 lazy loading 동작",
+        "카카오톡 오픈채팅 리다이렉트 동작",
+        "한/영 전환 전 페이지 동작"
+      ],
+      "scope": []
+    }
+  ],
+  "data_models": [
+    {
+      "entity": "PortfolioItem",
+      "fields": {
+        "id": "string",
+        "title_ko": "string",
+        "title_en": "string",
+        "category": "'voice-acting' | 'acting' | 'singing'",
+        "tone": "string | null (도도한, 다정한, 내레이션 등 — voice-acting만)",
+        "youtubeUrl": "string",
+        "thumbnailUrl": "string",
+        "isFeatured": "boolean",
+        "year": "number",
+        "description_ko": "string | null",
+        "description_en": "string | null"
+      }
+    },
+    {
+      "entity": "Profile",
+      "fields": {
+        "name_ko": "string",
+        "name_en": "string",
+        "tagline_ko": "string",
+        "tagline_en": "string",
+        "bio_ko": "string",
+        "bio_en": "string",
+        "profileImageUrl": "string",
+        "demoReelUrl": "string",
+        "career": "[{ year, title_ko, title_en }]",
+        "awards": "[{ year, title_ko, title_en }]",
+        "mediaClippings": "[{ title, url, source, date }]",
+        "sns": "{ youtube, instagram, kakaoOpenChat, email }"
+      }
+    },
+    {
+      "entity": "ScheduleEvent",
+      "fields": {
+        "id": "string",
+        "title_ko": "string",
+        "title_en": "string",
+        "date": "string (ISO 8601)",
+        "location_ko": "string | null",
+        "location_en": "string | null",
+        "description_ko": "string | null",
+        "description_en": "string | null",
+        "url": "string | null"
+      }
+    }
+  ],
+  "non_functional_requirements": {
+    "security": [
+      "전화번호 비노출 (카카오톡 오픈채팅으로 대체)",
+      "환경변수로 Analytics ID 관리",
+      "이메일 주소 크롤링 방지 (obfuscation)"
+    ],
+    "performance": [
+      "Lighthouse Performance > 90",
+      "유튜브 임베드 lazy loading (lite-youtube-embed 또는 facade)",
+      "이미지 최적화 (next/image)",
+      "정적 생성으로 TTFB 최소화"
+    ],
+    "seo": [
+      "각 페이지 고유 메타 태그",
+      "JSON-LD 구조화 데이터",
+      "sitemap.xml + robots.txt",
+      "한/영 hreflang alternate"
+    ]
+  }
+}

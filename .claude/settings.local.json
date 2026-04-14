@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir=false --import-alias=\"@/*\" --no-git)",
+      "Bash(npm --version)",
+      "Bash(export PATH=\"$HOME/.bun/bin:$PATH\")",
+      "Bash(bun --version)",
+      "Bash(bunx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir=false --import-alias=\"@/*\" --no-git)",
+      "Bash(bun add:*)",
+      "Bash(ls:*)",
+      "Bash(npm run:*)",
+      "Bash(curl -s http://localhost:3000/ko)",
+      "Bash(curl -s http://localhost:3000/ko/portfolio -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://localhost:3000/ko/about -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://localhost:3000/ko/schedule -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://localhost:3000/en -o /dev/null -w \"%{http_code}\")",
+      "Bash(kill %1)",
+      "Bash(kill 64487)",
+      "Bash(curl -s http://localhost:3000/ko -o /dev/null -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(pkill -f \"next dev\")",
+      "WebFetch(domain:www.youtube.com)",
+      "Bash(git init:*)",
+      "Bash(git remote:*)",
+      "Bash(git branch:*)"
+    ]
+  }
+}

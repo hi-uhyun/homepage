@@ -1,0 +1,41 @@
+[
+  {
+    "id": "act-001",
+    "title_ko": "사극 독백 <역린>",
+    "title_en": "Historical Monologue 'The Throne'",
+    "category": "acting",
+    "tone": null,
+    "youtubeUrl": "https://youtu.be/1AOkQXddlrg",
+    "thumbnailUrl": "",
+    "isFeatured": true,
+    "year": 2024,
+    "description_ko": null,
+    "description_en": null
+  },
+  {
+    "id": "act-002",
+    "title_ko": "학생물 독백 <죄많은 소녀>",
+    "title_en": "Student Monologue 'Sinful Girl'",
+    "category": "acting",
+    "tone": null,
+    "youtubeUrl": "https://youtu.be/mg1-DqFrCBI",
+    "thumbnailUrl": "",
+    "isFeatured": true,
+    "year": 2024,
+    "description_ko": null,
+    "description_en": null
+  },
+  {
+    "id": "act-003",
+    "title_ko": "연애물 2인극 <Long time no sex>",
+    "title_en": "Romance Two-Hander 'Long Time No Sex'",
+    "category": "acting",
+    "tone": null,
+    "youtubeUrl": "https://youtu.be/tTnZpClgPJ8",
+    "thumbnailUrl": "",
+    "isFeatured": true,
+    "year": 2024,
+    "description_ko": null,
+    "description_en": null
+  }
+]

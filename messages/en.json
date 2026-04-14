@@ -1,0 +1,44 @@
+{
+  "nav": {
+    "home": "Home",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "schedule": "Schedule",
+    "contact": "Contact"
+  },
+  "hero": {
+    "tagline": "Voice Actor · Actor · Singer"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "all": "All",
+    "voiceActing": "Voice Acting",
+    "acting": "Acting",
+    "singing": "Singing/Performance",
+    "featured": "Featured"
+  },
+  "about": {
+    "title": "About",
+    "career": "Career",
+    "awards": "Awards",
+    "media": "Media"
+  },
+  "schedule": {
+    "title": "Schedule",
+    "upcoming": "Upcoming Events",
+    "bookTime": "Check Availability & Inquire",
+    "bookDescription": "Select an available time below to complete your booking. You'll be redirected to KakaoTalk open chat after scheduling.",
+    "ticketLink": "Tickets / Register",
+    "noEvents": "No upcoming events at this time."
+  },
+  "contact": {
+    "title": "Contact",
+    "kakao": "Contact via KakaoTalk",
+    "email": "Send Email"
+  },
+  "common": {
+    "viewAll": "View All",
+    "contact": "Get in Touch",
+    "backToHome": "Back to Home"
+  }
+}

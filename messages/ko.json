@@ -1,0 +1,44 @@
+{
+  "nav": {
+    "home": "홈",
+    "portfolio": "포트폴리오",
+    "about": "소개",
+    "schedule": "일정",
+    "contact": "연락"
+  },
+  "hero": {
+    "tagline": "성우 · 배우 · 가수"
+  },
+  "portfolio": {
+    "title": "포트폴리오",
+    "all": "전체",
+    "voiceActing": "광고/성우",
+    "acting": "연기",
+    "singing": "노래/공연",
+    "featured": "대표작"
+  },
+  "about": {
+    "title": "소개",
+    "career": "주요 경력",
+    "awards": "수상 이력",
+    "media": "미디어"
+  },
+  "schedule": {
+    "title": "일정",
+    "upcoming": "다가오는 일정",
+    "bookTime": "가능 시간 확인 및 문의",
+    "bookDescription": "아래에서 가능한 시간을 선택해 예약을 완료하면 카카오톡 오픈채팅으로 연결됩니다.",
+    "ticketLink": "티켓 / 신청",
+    "noEvents": "현재 예정된 일정이 없습니다."
+  },
+  "contact": {
+    "title": "문의",
+    "kakao": "카카오톡으로 문의",
+    "email": "이메일 보내기"
+  },
+  "common": {
+    "viewAll": "전체 보기",
+    "contact": "문의하기",
+    "backToHome": "홈으로 돌아가기"
+  }
+}
