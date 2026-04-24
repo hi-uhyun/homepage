@@ -3,7 +3,7 @@
   "name_en": "Park Yoohyun",
   "tagline_ko": "성우 · 배우 · 가수",
   "tagline_en": "Voice Actor · Actor · Singer",
-  "bio_ko": "",
+  "bio_ko": "1998년 분당 출생, 인문계 생활 속에서 공부, 노래, 춤, 연기를 다양하게 경험하며 나의 목소리를 찾게 됨. 성적이 나와야 연기할 수 있었기에 두마리 토끼를 놓치지 않는 집념과 끈기를 배움. Amy Winehouse, Chrisette Michele 등 색채있는 아티스트의 노래와 왁킹, 걸스힙합 장르에 미쳤던 고등학교 생활을 보냄. 미련없이 춤추고 노래한 뒤 단국대 연극영화과로 진학하여 배우의 삶을 살기 시작함. 갈라쇼, 뮤지컬, 연극, 낭독극, 단편영화, 광고에서 배우이자 성우로 활동하며 다방면의 무대를 소화할 수 있는 아티스트의 길을 찾음. 그렇게 2018년부터 본격 무대/카메라 앞에 섰고, 현재는 20편 이상의 작품에 배우로, 300편 이상의 영상물에 성우로 참여했고, 여전히 장르를 가리지 않고 연기하는 아티스트로 성장 중.",
   "bio_en": "",
   "profileImageUrl": "/images/profile.jpg",
   "demoReelUrl": "",
@@ -99,8 +99,60 @@
       "title_en": "Short Film 'Mirta' — Lead (Ballet Student)"
     }
   ],
-  "awards": [],
-  "mediaClippings": [],
+  "awards": [
+    {
+      "year": 2020,
+      "title_ko": "아시아문화경제진흥원 신인배우상 연기부문",
+      "title_en": "Asia Culture & Economy Promotion Agency — Best New Actor Award"
+    },
+    {
+      "year": 2016,
+      "title_ko": "공업탑예술제 대중무용 부문 팀 대상, 여성가족부 장관상",
+      "title_en": "Gongeoptap Arts Festival — Grand Prize in Popular Dance (Team), Minister of Gender Equality Award"
+    },
+    {
+      "year": 2015,
+      "title_ko": "경기도예술제 무용부문 대상",
+      "title_en": "Gyeonggi-do Arts Festival — Grand Prize in Dance"
+    },
+    {
+      "year": 2015,
+      "title_ko": "경기도예술제 노래부문 우수상",
+      "title_en": "Gyeonggi-do Arts Festival — Excellence Award in Singing"
+    }
+  ],
+  "mediaClippings": [
+    {
+      "title": "신예 박유현, 웹드라마 '씨네마클럽'서 톡톡튀는 감초역할 맡아",
+      "url": "https://www.sisamagazine.co.kr/news/articleView.html?idxno=442092",
+      "source": "시사매거진",
+      "date": "2022-04-26"
+    },
+    {
+      "title": "신예 박유현, 웹드라마 '씨네마클럽'서 감초역할",
+      "url": "https://sports.khan.co.kr/article/202204261847003",
+      "source": "스포츠경향",
+      "date": "2022-04-26"
+    },
+    {
+      "title": "신예 박유현, 웹드라마 '씨네마클럽'서 톡톡튀는 감초역할 맡아",
+      "url": "http://www.egn.kr/news/articleView.html?idxno=202021",
+      "source": "인터넷조은뉴스",
+      "date": "2022-04-20"
+    },
+    {
+      "title": "박유현 — 플레이DB",
+      "url": "http://www.playdb.co.kr/artistdb/detail.asp?ManNo=32442",
+      "source": "플레이DB",
+      "date": ""
+    },
+    {
+      "title": "박유현(배우) — 나무위키",
+      "url": "https://namu.wiki/w/%EB%B0%95%EC%9C%A0%ED%98%84(%EB%B0%B0%EC%9A%B0)",
+      "source": "나무위키",
+      "date": ""
+    }
+  ],
   "playlists": [
     {
       "title_ko": "출연영상 모음",

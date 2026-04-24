@@ -1,5 +1,10 @@
-import { useTranslations } from 'next-intl';
+'use client';
+
+import dynamic from 'next/dynamic';
 import type { Profile } from '@/lib/types';
+import BlurText from '@/components/BlurText';
+
+const Aurora = dynamic(() => import('@/components/Aurora'), { ssr: false });
 
 interface HeroSectionProps {
   profile: Profile;
@@ -12,44 +17,63 @@ function extractYouTubeId(url: string): string | null {
 }
 
 export default function HeroSection({ profile, locale }: HeroSectionProps) {
-  const t = useTranslations('hero');
   const name = locale === 'ko' ? profile.name_ko : profile.name_en;
   const tagline = locale === 'ko' ? profile.tagline_ko : profile.tagline_en;
-  const videoId = extractYouTubeId(profile.demoReelUrl);
+  const videoId = profile.demoReelUrl ? extractYouTubeId(profile.demoReelUrl) : null;
   const embedUrl = videoId
     ? `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`
     : null;
 
   return (
     <section
-      className="relative flex min-h-screen flex-col items-center justify-center bg-zinc-950 px-4 py-20 text-white"
+      className="relative flex min-h-[66vh] flex-col items-center justify-center overflow-hidden bg-zinc-950 px-4 py-16 text-white"
       aria-label="Hero"
     >
-      {/* Background subtle gradient overlay */}
+      {/* Aurora background */}
+      <div className="pointer-events-none absolute inset-0 opacity-40">
+        <Aurora
+          colorStops={['#3b82f6', '#8b5cf6', '#3b82f6']}
+          amplitude={1.2}
+          blend={0.6}
+          speed={0.5}
+        />
+      </div>
+
+      {/* Subtle gradient overlay for text readability */}
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-zinc-900/60 via-transparent to-zinc-950/80"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-zinc-950/40 via-transparent to-zinc-950/80"
         aria-hidden="true"
       />
 
       <div className="relative z-10 mx-auto w-full max-w-5xl text-center">
         {/* Tagline pill */}
-        <p className="mb-6 inline-block rounded-full border border-zinc-700 px-4 py-1.5 text-sm tracking-widest text-zinc-400 uppercase">
-          {t('tagline')}
-        </p>
-
-        {/* Name */}
-        <h1 className="mb-4 text-5xl font-bold tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
-          {name}
-        </h1>
-
-        {/* Full tagline */}
-        <p className="mx-auto mb-12 max-w-2xl text-lg text-zinc-300 sm:text-xl">
+        <div className="mb-6 inline-block rounded-full border border-zinc-700/50 px-4 py-1.5 text-sm tracking-widest text-zinc-400 uppercase backdrop-blur-sm">
           {tagline}
-        </p>
+        </div>
+
+        {/* Name with BlurText animation */}
+        <BlurText
+          text={name}
+          className="mb-4 justify-center text-5xl font-bold tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl"
+          delay={100}
+          animateBy="letters"
+          direction="bottom"
+        />
+
+        {/* Subtitle */}
+        <BlurText
+          text={locale === 'ko'
+            ? '8년차 성우 · LG, 삼성, 넷플릭스, 구글 외 300여 편'
+            : '8 Years as Voice Actor · 300+ Projects for LG, Samsung, Netflix, Google'}
+          className="mx-auto mb-12 max-w-2xl justify-center text-lg text-zinc-400 sm:text-xl"
+          delay={30}
+          animateBy="words"
+          direction="bottom"
+        />
 
         {/* Demo Reel Embed */}
         {embedUrl && (
-          <div className="mx-auto w-full max-w-3xl overflow-hidden rounded-2xl border border-zinc-800 shadow-2xl">
+          <div className="mx-auto w-full max-w-3xl overflow-hidden rounded-2xl border border-zinc-800/50 shadow-2xl backdrop-blur-sm">
             <div className="relative aspect-video w-full">
               <iframe
                 src={embedUrl}
