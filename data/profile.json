@@ -123,22 +123,34 @@
   ],
   "mediaClippings": [
     {
-      "title": "신예 박유현, 웹드라마 '씨네마클럽'서 톡톡튀는 감초역할 맡아",
-      "url": "https://www.sisamagazine.co.kr/news/articleView.html?idxno=442092",
-      "source": "시사매거진",
-      "date": "2022-04-26"
-    },
-    {
       "title": "신예 박유현, 웹드라마 '씨네마클럽'서 감초역할",
       "url": "https://sports.khan.co.kr/article/202204261847003",
-      "source": "스포츠경향",
+      "source": "스포츠경향 외 2개 매체",
       "date": "2022-04-26"
     },
     {
-      "title": "신예 박유현, 웹드라마 '씨네마클럽'서 톡톡튀는 감초역할 맡아",
-      "url": "http://www.egn.kr/news/articleView.html?idxno=202021",
-      "source": "인터넷조은뉴스",
-      "date": "2022-04-20"
+      "title": "뮤지컬 '써니텐' 관객 리뷰",
+      "url": "https://blog.naver.com/ph0713/223610684145",
+      "source": "블로그 리뷰 외 다수",
+      "date": "2024-10-01"
+    },
+    {
+      "title": "뮤지컬 <써니텐> 3차 관람 — 박유현, 황민 캐스팅",
+      "url": "https://blog.naver.com/protagonist_no1/223738534259",
+      "source": "블로그 리뷰",
+      "date": "2025-01-01"
+    },
+    {
+      "title": "독일 반지브랜드 아크레도 x 아티스트 박유현 인터뷰",
+      "url": "https://youtu.be/u2FKH11HdIg",
+      "source": "YouTube 인터뷰",
+      "date": ""
+    },
+    {
+      "title": "루키 배우 박유현의 인터뷰",
+      "url": "https://youtu.be/Q9DCygP910M",
+      "source": "YouTube 인터뷰",
+      "date": ""
     },
     {
       "title": "박유현 — 플레이DB",
@@ -160,15 +172,25 @@
       "url": "https://www.youtube.com/playlist?list=PLquWIyule4ekNERhVLnAI3FNTx7VBZ_MI"
     },
     {
-      "title_ko": "나레이션 모음",
-      "title_en": "Narration Clips",
+      "title_ko": "자유연기 모음",
+      "title_en": "Free Acting Clips",
+      "url": "https://www.youtube.com/playlist?list=PLquWIyule4enPy7rlXAnIyzZ-JC4piLYl"
+    },
+    {
+      "title_ko": "성우 나레이션 모음",
+      "title_en": "Voice Acting / Narration",
       "url": "https://www.youtube.com/playlist?list=PLquWIyule4emRl_3Tvx2IS6GELRaRWOAM"
+    },
+    {
+      "title_ko": "노래 모음",
+      "title_en": "Singing",
+      "url": "https://www.youtube.com/watch?v=mnyhxJb4lsk&list=PLquWIyule4elF0m6NAiGttUYsHT53YX_8"
     }
   ],
   "sns": {
     "youtube": "https://www.youtube.com/@hi.uhyun.",
     "instagram": "https://www.instagram.com/hi.uhyun",
     "kakaoOpenChat": "https://open.kakao.com/o/p0G7Yoqi",
-    "email": "njs04382@naver.com"
+    "email": "98yoohyun@naver.com"
   }
 }

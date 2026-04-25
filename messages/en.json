@@ -12,10 +12,13 @@
   "portfolio": {
     "title": "Portfolio",
     "all": "All",
+    "filmography": "Filmography",
+    "indieFilm": "Indie Films",
+    "freeActing": "Free Acting",
     "voiceActing": "Voice Acting",
-    "acting": "Acting",
-    "singing": "Singing/Performance",
-    "featured": "Featured"
+    "music": "Music",
+    "featured": "Featured",
+    "playlistLink": "View All Videos"
   },
   "about": {
     "title": "About",

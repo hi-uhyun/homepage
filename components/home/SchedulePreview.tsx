@@ -145,6 +145,8 @@ export default function SchedulePreview({ events, locale }: SchedulePreviewProps
   const scheduleHref = `/${locale}/schedule`;
   const previewEvents = events.slice(0, 3);
 
+  if (previewEvents.length === 0) return null;
+
   return (
     <section
       className="bg-white px-4 py-20"

@@ -48,7 +48,7 @@ export default function HeroSection({ profile, locale }: HeroSectionProps) {
       <div className="relative z-10 mx-auto w-full max-w-5xl text-center">
         {/* Tagline pill */}
         <div className="mb-6 inline-block rounded-full border border-zinc-700/50 px-4 py-1.5 text-sm tracking-widest text-zinc-400 uppercase backdrop-blur-sm">
-          {tagline}
+          {locale === 'ko' ? '300편의 목소리' : '300 Voices, One Artist'}
         </div>
 
         {/* Name with BlurText animation */}
@@ -62,10 +62,8 @@ export default function HeroSection({ profile, locale }: HeroSectionProps) {
 
         {/* Subtitle */}
         <BlurText
-          text={locale === 'ko'
-            ? '8년차 성우 · LG, 삼성, 넷플릭스, 구글 외 300여 편'
-            : '8 Years as Voice Actor · 300+ Projects for LG, Samsung, Netflix, Google'}
-          className="mx-auto mb-12 max-w-2xl justify-center text-lg text-zinc-400 sm:text-xl"
+          text="Netflix · tvN · SBS · LG · Samsung · Google"
+          className="mx-auto mb-12 max-w-2xl justify-center text-base text-zinc-400 sm:text-lg leading-relaxed"
           delay={30}
           animateBy="words"
           direction="bottom"

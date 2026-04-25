@@ -22,7 +22,18 @@
       "WebFetch(domain:www.youtube.com)",
       "Bash(git init:*)",
       "Bash(git remote:*)",
-      "Bash(git branch:*)"
+      "Bash(git branch:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "WebFetch(domain:reactbits.dev)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(npx shadcn@latest add \"https://reactbits.dev/r/BlurText-TS-TW\")",
+      "Bash(bunx shadcn@latest add \"https://reactbits.dev/r/BlurText-TS-TW\")",
+      "Bash(git pull:*)",
+      "Bash(git config:*)",
+      "Bash(bunx shadcn@latest add \"https://reactbits.dev/r/SplitText-TS-TW\")",
+      "Bash(bunx shadcn@latest add \"https://reactbits.dev/r/Aurora-TS-TW\")"
     ]
   }
 }

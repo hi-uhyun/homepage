@@ -1,81 +1,76 @@
-import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
-import { getPortfolio } from '@/lib/data';
-import { PortfolioFilter } from '@/components/portfolio/PortfolioFilter';
-import { PortfolioGrid } from '@/components/portfolio/PortfolioGrid';
+import { getPortfolio, getProfile } from '@/lib/data';
+import type { PortfolioItem, Playlist } from '@/lib/types';
+import PortfolioSection from '@/components/portfolio/PortfolioSection';
 
 export const metadata: Metadata = {
   title: '포트폴리오',
   description:
-    '박유현의 성우, 배우, 가수 포트폴리오. 광고 보이스오버, 드라마 출연작, 음악 작품을 확인하세요.',
-  keywords: ['박유현 포트폴리오', '성우 작품', '배우 작품', '가수 작품', '보이스오버'],
+    '박유현의 출연작, 독립영화, 자유연기, 성우활동, 음악활동 포트폴리오.',
+  keywords: ['박유현 포트폴리오', '성우 작품', '배우 작품', '보이스오버'],
+};
+
+type Category = 'filmography' | 'indie-film' | 'free-acting' | 'voice-acting' | 'music';
+
+const CATEGORIES: Category[] = ['voice-acting', 'filmography', 'indie-film', 'free-acting', 'music'];
+
+const PLAYLIST_MAP: Record<Category, string> = {
+  'filmography': '출연영상 모음',
+  'indie-film': '',
+  'free-acting': '자유연기 모음',
+  'voice-acting': '성우 나레이션 모음',
+  'music': '노래 모음',
 };
 
 export default async function PortfolioPage() {
   const locale = await getLocale();
   const t = await getTranslations('portfolio');
   const items = getPortfolio();
+  const profile = getProfile();
 
-  const translations = {
-    all: t('all'),
-    voiceActing: t('voiceActing'),
-    acting: t('acting'),
-    singing: t('singing'),
+  const categoryLabels: Record<Category, string> = {
+    'filmography': t('filmography'),
+    'indie-film': t('indieFilm'),
+    'free-acting': t('freeActing'),
+    'voice-acting': t('voiceActing'),
+    'music': t('music'),
   };
 
-  const emptyLabel = locale === 'ko' ? '해당하는 작품이 없습니다.' : 'No items found.';
+  const playlistLink = t('playlistLink');
 
   return (
     <div className="min-h-screen">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-        <header className="mb-10">
+        <header className="mb-14">
           <h1 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight">
             {t('title')}
           </h1>
         </header>
 
-        <Suspense fallback={<PortfolioSkeleton />}>
-          <div className="space-y-8">
-            <PortfolioFilter
-              items={items}
-              locale={locale}
-              translations={translations}
-            />
-            <PortfolioGrid
-              items={items}
-              locale={locale}
-              emptyLabel={emptyLabel}
-            />
-          </div>
-        </Suspense>
-      </div>
-    </div>
-  );
-}
+        <div className="space-y-20">
+          {CATEGORIES.map((cat) => {
+            const categoryItems = items.filter(
+              (item: PortfolioItem) => item.category === cat
+            );
+            const playlistTitle = PLAYLIST_MAP[cat];
+            const playlist = playlistTitle
+              ? profile.playlists.find((p: Playlist) => p.title_ko === playlistTitle)
+              : undefined;
 
-function PortfolioSkeleton() {
-  return (
-    <div className="space-y-8">
-      <div className="flex gap-2">
-        {[80, 100, 70, 120].map((w) => (
-          <div
-            key={w}
-            className="h-9 rounded-full bg-neutral-100 animate-pulse"
-            style={{ width: `${w}px` }}
-          />
-        ))}
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="rounded-xl border border-neutral-200 overflow-hidden">
-            <div className="aspect-video bg-neutral-100 animate-pulse" />
-            <div className="p-4 space-y-2">
-              <div className="h-4 bg-neutral-100 rounded animate-pulse w-3/4" />
-              <div className="h-3 bg-neutral-100 rounded animate-pulse w-1/3" />
-            </div>
-          </div>
-        ))}
+            return (
+              <PortfolioSection
+                key={cat}
+                category={cat}
+                label={categoryLabels[cat]}
+                items={categoryItems}
+                playlistUrl={playlist?.url}
+                playlistLabel={playlistLink}
+                locale={locale}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

@@ -12,10 +12,13 @@
   "portfolio": {
     "title": "포트폴리오",
     "all": "전체",
-    "voiceActing": "광고/성우",
-    "acting": "연기",
-    "singing": "노래/공연",
-    "featured": "대표작"
+    "filmography": "출연작",
+    "indieFilm": "독립영화",
+    "freeActing": "자유연기",
+    "voiceActing": "성우활동",
+    "music": "음악활동",
+    "featured": "대표작",
+    "playlistLink": "전체 영상 보기"
   },
   "about": {
     "title": "소개",

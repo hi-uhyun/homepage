@@ -2,7 +2,7 @@ export interface PortfolioItem {
   id: string;
   title_ko: string;
   title_en: string;
-  category: 'voice-acting' | 'acting' | 'singing';
+  category: 'filmography' | 'indie-film' | 'free-acting' | 'voice-acting' | 'music';
   tone: string | null; // voice-acting only: e.g., '도도한', '다정한', '내레이션', '힘있는'
   youtubeUrl: string;
   thumbnailUrl: string;

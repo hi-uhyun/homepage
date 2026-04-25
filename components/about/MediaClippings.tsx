@@ -16,9 +16,15 @@ function formatDate(dateStr: string, locale: string): string {
   }).format(date);
 }
 
+function extractYouTubeId(url: string): string | null {
+  const match = url.match(/[?&]v=([^&#]+)/) || url.match(/youtu\.be\/([^?&#]+)/);
+  return match ? match[1] : null;
+}
+
 export default function MediaClippings({ clippings, locale, heading }: MediaClippingsProps) {
-  const articles = clippings.filter((c) => c.date);
-  const profiles = clippings.filter((c) => !c.date);
+  const articles = clippings.filter((c) => c.date && !c.source.includes('인터뷰'));
+  const interviews = clippings.filter((c) => c.source.includes('인터뷰'));
+  const profiles = clippings.filter((c) => !c.date && !c.source.includes('인터뷰'));
 
   const sortedArticles = [...articles].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -30,9 +36,44 @@ export default function MediaClippings({ clippings, locale, heading }: MediaClip
         {heading}
       </h2>
 
+      {/* Interviews — YouTube embeds */}
+      {interviews.length > 0 && (
+        <div className="mb-12">
+          <h3 className="text-sm font-semibold text-neutral-400 uppercase tracking-widest mb-6">
+            {locale === 'ko' ? '인터뷰' : 'Interviews'}
+          </h3>
+          <div className="grid gap-6 sm:grid-cols-2">
+            {interviews.map((clip, index) => {
+              const videoId = extractYouTubeId(clip.url);
+              return (
+                <div key={index} className="overflow-hidden rounded-xl border border-neutral-200">
+                  {videoId && (
+                    <div className="relative aspect-video w-full bg-neutral-100">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+                        title={clip.title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full"
+                      />
+                    </div>
+                  )}
+                  <div className="px-4 py-3">
+                    <p className="text-sm font-medium text-neutral-800 leading-snug">
+                      {clip.title}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Press / News */}
       {sortedArticles.length > 0 && (
-        <div className="mb-10">
+        <div className="mb-12">
           <h3 className="text-sm font-semibold text-neutral-400 uppercase tracking-widest mb-6">
             {locale === 'ko' ? '보도자료' : 'Press'}
           </h3>

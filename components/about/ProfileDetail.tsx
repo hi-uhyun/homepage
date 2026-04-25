@@ -64,6 +64,28 @@ export default function ProfileDetail({ profile, locale }: ProfileDetailProps) {
         </div>
       </div>
 
+      {/* Testimonials */}
+      <div className="mt-16 grid gap-4 sm:grid-cols-2">
+        {[
+          { quote: locale === 'ko' ? '내가 믿고 맡기는 최애 성우다' : 'My go-to voice actor — I trust her completely', from: 'S Recording Studio' },
+          { quote: locale === 'ko' ? '천명에 한두번 나오는 목소리' : 'A voice you hear once in a thousand', from: 'K Recording Studio' },
+          { quote: locale === 'ko' ? '일상을 장면으로 만들어내는 목소리' : 'A voice that turns everyday moments into scenes', from: locale === 'ko' ? 'S 작가' : 'Writer S' },
+          { quote: locale === 'ko' ? '사운드감독으로 만났는데, 차기작 주인공으로 캐스팅' : 'Met her as a sound director — cast her as the lead in my next film', from: locale === 'ko' ? 'K 감독' : 'Director K' },
+        ].map((item, i) => (
+          <blockquote
+            key={i}
+            className="flex flex-col justify-between rounded-xl border border-neutral-100 bg-neutral-50 px-6 py-5"
+          >
+            <p className="text-base text-neutral-800 leading-relaxed">
+              &ldquo;{item.quote}&rdquo;
+            </p>
+            <cite className="mt-3 block text-sm text-neutral-400 not-italic">
+              — {item.from}
+            </cite>
+          </blockquote>
+        ))}
+      </div>
+
       {/* Demo Reel */}
       <div className="mt-16">
         <h2 className="text-2xl font-bold text-neutral-900 mb-6">
