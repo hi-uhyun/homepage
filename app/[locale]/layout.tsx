@@ -63,6 +63,11 @@ export async function generateMetadata({
           : 'Official website of Park Yoohyun — professional voice actor, actor, and singer with 300+ commercials.',
       images: [`${SITE_URL}${profile.profileImageUrl}`],
     },
+    verification: {
+      other: {
+        'naver-site-verification': 'b0cb51d9420939d7270add54143c728901c68c8b',
+      },
+    },
   };
 }
 
