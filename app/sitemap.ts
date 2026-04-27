@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hiuhyun.com';
 
 const locales = ['ko', 'en'] as const;
-const pages = ['', '/portfolio', '/about', '/schedule'] as const;
+const pages = ['', '/portfolio', '/about', '/contact'] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];

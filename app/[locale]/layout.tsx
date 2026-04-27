@@ -9,7 +9,6 @@ import { notFound } from 'next/navigation';
 import { getProfile } from '@/lib/data';
 import { getPersonJsonLd } from '@/lib/seo';
 import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://hiuhyun.com';
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -113,7 +112,6 @@ export default async function LocaleLayout({
       <NextIntlClientProvider messages={messages}>
         <Header />
         <main className="pt-14 sm:pt-16">{children}</main>
-        <Footer />
       </NextIntlClientProvider>
       <Analytics />
     </>

@@ -8,17 +8,17 @@ export async function generateMetadata(): Promise<Metadata> {
   const name = locale === 'ko' ? profile.name_ko : profile.name_en;
 
   return {
-    title: `${name} — ${locale === 'ko' ? '일정' : 'Schedule'}`,
+    title: `${name} — ${locale === 'ko' ? '문의' : 'Contact'}`,
     description:
       locale === 'ko'
-        ? '박유현에게 섭외 및 일정 문의를 보내세요.'
-        : "Get in touch with Park Yoohyun for booking and schedule inquiries.",
+        ? '박유현에게 섭외, 캐스팅, 협업 문의를 보내세요.'
+        : "Get in touch with Park Yoohyun for casting, collaboration, and booking inquiries.",
   };
 }
 
-export default async function SchedulePage() {
+export default async function ContactPage() {
   const locale = await getLocale();
-  const t = await getTranslations('schedule');
+  const t = await getTranslations('contact');
   const profile = getProfile();
   const { sns } = profile;
 
@@ -27,12 +27,10 @@ export default async function SchedulePage() {
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <section>
           <h1 className="text-3xl font-bold text-neutral-900 mb-3 tracking-tight">
-            {t('bookTime')}
+            {t('heading')}
           </h1>
           <p className="text-base text-neutral-500 mb-12 max-w-xl leading-relaxed">
-            {locale === 'ko'
-              ? '섭외, 캐스팅, 협업 문의는 아래 연락처로 편하게 연락주세요.'
-              : 'For casting, collaboration, and booking inquiries, please reach out through any of the channels below.'}
+            {t('description')}
           </p>
 
           <div className="flex flex-col gap-5">

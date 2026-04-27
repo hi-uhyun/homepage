@@ -3,7 +3,6 @@
     "home": "Home",
     "portfolio": "Portfolio",
     "about": "About",
-    "schedule": "Schedule",
     "contact": "Contact"
   },
   "hero": {
@@ -26,18 +25,12 @@
     "awards": "Awards",
     "media": "Media"
   },
-  "schedule": {
-    "title": "Schedule",
-    "upcoming": "Upcoming Events",
-    "bookTime": "Check Availability & Inquire",
-    "bookDescription": "Select an available time below to complete your booking. You'll be redirected to KakaoTalk open chat after scheduling.",
-    "ticketLink": "Tickets / Register",
-    "noEvents": "No upcoming events at this time."
-  },
   "contact": {
     "title": "Contact",
-    "kakao": "Contact via KakaoTalk",
-    "email": "Send Email"
+    "heading": "Get in Touch",
+    "description": "For casting, collaboration, and booking inquiries, please reach out through any of the channels below.",
+    "kakao": "Open KakaoTalk Chat",
+    "email": "Send an Email"
   },
   "common": {
     "viewAll": "View All",

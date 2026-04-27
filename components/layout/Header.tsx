@@ -7,15 +7,13 @@ import LanguageToggle from '@/components/layout/LanguageToggle';
 
 interface NavLink {
   href: string;
-  labelKey: 'portfolio' | 'about' | 'schedule' | 'contact';
-  isAnchor?: boolean;
+  labelKey: 'portfolio' | 'about' | 'contact';
 }
 
 const NAV_LINKS: NavLink[] = [
   { href: '/portfolio', labelKey: 'portfolio' },
   { href: '/about', labelKey: 'about' },
-  { href: '/schedule', labelKey: 'schedule' },
-  { href: '/#contact', labelKey: 'contact', isAnchor: true },
+  { href: '/contact', labelKey: 'contact' },
 ];
 
 export default function Header() {
@@ -39,18 +37,6 @@ export default function Header() {
   }, [pathname]);
 
   const logoText = locale === 'ko' ? '박유현' : 'Park Yoohyun';
-
-  function handleAnchorClick(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
-    if (href.startsWith('/#')) {
-      const id = href.slice(2);
-      const target = document.getElementById(id);
-      if (target) {
-        e.preventDefault();
-        setMenuOpen(false);
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }
 
   return (
     <header
@@ -77,13 +63,12 @@ export default function Header() {
             className="hidden sm:flex items-center gap-6"
             aria-label="주요 네비게이션"
           >
-            {NAV_LINKS.map(({ href, labelKey, isAnchor }) => {
-              const isActive = !isAnchor && pathname === href;
+            {NAV_LINKS.map(({ href, labelKey }) => {
+              const isActive = pathname === href;
               return (
                 <Link
                   key={labelKey}
                   href={href as '/'}
-                  onClick={isAnchor ? (e) => handleAnchorClick(e, href) : undefined}
                   aria-current={isActive ? 'page' : undefined}
                   className={[
                     'text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 rounded px-1',
@@ -147,13 +132,12 @@ export default function Header() {
         ].join(' ')}
       >
         <nav className="flex flex-col px-4 py-3 gap-1">
-          {NAV_LINKS.map(({ href, labelKey, isAnchor }) => {
-            const isActive = !isAnchor && pathname === href;
+          {NAV_LINKS.map(({ href, labelKey }) => {
+            const isActive = pathname === href;
             return (
               <Link
                 key={labelKey}
                 href={href as '/'}
-                onClick={isAnchor ? (e) => handleAnchorClick(e, href) : undefined}
                 aria-current={isActive ? 'page' : undefined}
                 className={[
                   'text-base py-2.5 px-2 rounded font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900',

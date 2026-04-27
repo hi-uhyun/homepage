@@ -59,15 +59,3 @@ export interface Profile {
   playlists: Playlist[];
   sns: SNSLinks;
 }
-
-export interface ScheduleEvent {
-  id: string;
-  title_ko: string;
-  title_en: string;
-  date: string; // ISO 8601
-  location_ko: string | null;
-  location_en: string | null;
-  description_ko: string | null;
-  description_en: string | null;
-  url: string | null;
-}
