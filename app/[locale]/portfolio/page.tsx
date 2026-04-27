@@ -3,6 +3,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { getPortfolio, getProfile } from '@/lib/data';
 import type { PortfolioItem, Playlist } from '@/lib/types';
 import PortfolioSection from '@/components/portfolio/PortfolioSection';
+import Footer from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   title: '포트폴리오',
@@ -40,6 +41,7 @@ export default async function PortfolioPage() {
   const playlistLink = t('playlistLink');
 
   return (
+    <>
     <div className="min-h-screen">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         <header className="mb-14">
@@ -67,11 +69,14 @@ export default async function PortfolioPage() {
                 playlistUrl={playlist?.url}
                 playlistLabel={playlistLink}
                 locale={locale}
+                size="lg"
               />
             );
           })}
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }

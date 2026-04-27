@@ -5,6 +5,7 @@ import ProfileDetail from '@/components/about/ProfileDetail';
 import CareerTimeline from '@/components/about/CareerTimeline';
 import AwardsList from '@/components/about/AwardsList';
 import MediaClippings from '@/components/about/MediaClippings';
+import Footer from '@/components/layout/Footer';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -24,6 +25,7 @@ export default async function AboutPage() {
   const profile = getProfile();
 
   return (
+    <>
     <main className="min-h-screen">
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <div className="flex flex-col gap-20 lg:gap-28">
@@ -55,5 +57,7 @@ export default async function AboutPage() {
         </div>
       </div>
     </main>
+    <Footer />
+    </>
   );
 }
