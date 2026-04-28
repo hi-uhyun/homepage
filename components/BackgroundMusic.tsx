@@ -20,17 +20,18 @@ export default function BackgroundMusic() {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const shouldAutoStart = pref !== 'off' && !reducedMotion;
 
+    const triggerEvents = ['click', 'pointerdown', 'touchend', 'keydown'] as const;
     const startOnInteraction = () => {
       if (audio.paused) {
-        audio.play().catch(() => {});
+        audio.play().catch((err) => {
+          console.warn('[BGM] autoplay blocked:', err);
+        });
       }
-      window.removeEventListener('pointerdown', startOnInteraction);
-      window.removeEventListener('keydown', startOnInteraction);
+      triggerEvents.forEach((evt) => window.removeEventListener(evt, startOnInteraction));
     };
 
     if (shouldAutoStart) {
-      window.addEventListener('pointerdown', startOnInteraction);
-      window.addEventListener('keydown', startOnInteraction);
+      triggerEvents.forEach((evt) => window.addEventListener(evt, startOnInteraction));
     }
 
     const onPlay = () => setIsPlaying(true);
