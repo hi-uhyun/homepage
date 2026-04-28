@@ -20,18 +20,31 @@ export default function BackgroundMusic() {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const shouldAutoStart = pref !== 'off' && !reducedMotion;
 
-    const triggerEvents = ['click', 'pointerdown', 'touchend', 'keydown'] as const;
+    const triggerEvents = ['click', 'pointerdown', 'touchend', 'keydown', 'wheel', 'scroll'] as const;
+    const cleanupTriggers = () => {
+      triggerEvents.forEach((evt) =>
+        window.removeEventListener(evt, startOnInteraction, { capture: true } as EventListenerOptions),
+      );
+    };
     const startOnInteraction = () => {
-      if (audio.paused) {
-        audio.play().catch((err) => {
-          console.warn('[BGM] autoplay blocked:', err);
-        });
+      if (!audio.paused) {
+        cleanupTriggers();
+        return;
       }
-      triggerEvents.forEach((evt) => window.removeEventListener(evt, startOnInteraction));
+      audio
+        .play()
+        .then(() => {
+          cleanupTriggers();
+        })
+        .catch(() => {
+          // user-activation 부족 — 리스너 유지하여 다음 인터랙션에서 재시도
+        });
     };
 
     if (shouldAutoStart) {
-      triggerEvents.forEach((evt) => window.addEventListener(evt, startOnInteraction));
+      triggerEvents.forEach((evt) =>
+        window.addEventListener(evt, startOnInteraction, { capture: true, passive: true }),
+      );
     }
 
     const onPlay = () => setIsPlaying(true);
@@ -66,8 +79,7 @@ export default function BackgroundMusic() {
     document.addEventListener('visibilitychange', onVisibility);
 
     return () => {
-      window.removeEventListener('pointerdown', startOnInteraction);
-      window.removeEventListener('keydown', startOnInteraction);
+      cleanupTriggers();
       audio.removeEventListener('play', onPlay);
       audio.removeEventListener('pause', onPause);
       window.removeEventListener('bgm:duck', onDuck);
