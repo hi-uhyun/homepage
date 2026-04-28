@@ -6,19 +6,10 @@ interface ProfileDetailProps {
   locale: string;
 }
 
-function getYoutubeEmbedUrl(url: string): string {
-  const match = url.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-  if (match) {
-    return `https://www.youtube.com/embed/${match[1]}`;
-  }
-  return url;
-}
-
 export default function ProfileDetail({ profile, locale }: ProfileDetailProps) {
   const name = locale === 'ko' ? profile.name_ko : profile.name_en;
   const tagline = locale === 'ko' ? profile.tagline_ko : profile.tagline_en;
   const bio = locale === 'ko' ? profile.bio_ko : profile.bio_en;
-  const embedUrl = getYoutubeEmbedUrl(profile.demoReelUrl);
 
   return (
     <section aria-labelledby="profile-name" className="w-full">
@@ -60,7 +51,26 @@ export default function ProfileDetail({ profile, locale }: ProfileDetailProps) {
             </h1>
             <p className="mt-3 text-lg text-neutral-500 font-medium">{tagline}</p>
           </div>
-          <p className="text-base leading-relaxed text-neutral-700 max-w-2xl">{bio}</p>
+          <div className="flex flex-col gap-5 text-left max-w-2xl">
+            {bio.intro && (
+              <p className="text-base leading-relaxed text-neutral-700">{bio.intro}</p>
+            )}
+            {bio.highlights.length > 0 && (
+              <ul className="flex flex-col gap-2 border-l-2 border-neutral-200 pl-5">
+                {bio.highlights.map((item, i) => (
+                  <li
+                    key={i}
+                    className="relative text-base leading-relaxed text-neutral-800 before:absolute before:-left-[1.45rem] before:top-[0.7em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-neutral-400 before:content-['']"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {bio.outro && (
+              <p className="text-base leading-relaxed text-neutral-700">{bio.outro}</p>
+            )}
+          </div>
         </div>
       </div>
 
@@ -76,7 +86,13 @@ export default function ProfileDetail({ profile, locale }: ProfileDetailProps) {
             key={i}
             className="flex flex-col justify-between rounded-xl border border-neutral-100 bg-neutral-50 px-6 py-5"
           >
-            <p className="text-base text-neutral-800 leading-relaxed">
+            <p
+              className="text-base text-neutral-800 leading-relaxed"
+              style={{
+                fontFamily:
+                  '"Apple SD Myungjo", "AppleMyungjo", "Nanum Myeongjo", "Noto Serif KR", "Source Han Serif K", Georgia, "Times New Roman", serif',
+              }}
+            >
               &ldquo;{item.quote}&rdquo;
             </p>
             <cite className="mt-3 block text-sm text-neutral-400 not-italic">
@@ -86,21 +102,6 @@ export default function ProfileDetail({ profile, locale }: ProfileDetailProps) {
         ))}
       </div>
 
-      {/* Demo Reel */}
-      <div className="mt-16">
-        <h2 className="text-2xl font-bold text-neutral-900 mb-6">
-          {locale === 'ko' ? '데모 릴' : 'Demo Reel'}
-        </h2>
-        <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-neutral-900 shadow-lg">
-          <iframe
-            src={embedUrl}
-            title={locale === 'ko' ? `${name} 데모 릴` : `${name} Demo Reel`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="absolute inset-0 w-full h-full"
-          />
-        </div>
-      </div>
     </section>
   );
 }

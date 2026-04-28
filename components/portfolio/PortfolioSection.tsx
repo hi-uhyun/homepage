@@ -14,6 +14,7 @@ interface PortfolioSectionProps {
   viewAllUrl?: string;
   viewAllLabel?: string;
   locale: string;
+  size?: 'sm' | 'lg';
 }
 
 function extractYouTubeId(url: string): string | null {
@@ -29,6 +30,31 @@ function getThumbnailUrl(item: PortfolioItem): string {
   return '';
 }
 
+const CARD_CLASS = {
+  sm: 'w-56 sm:w-64',
+  lg: 'w-72 sm:w-80 lg:w-96',
+} as const;
+
+const TITLE_CLASS = {
+  sm: 'text-xs',
+  lg: 'text-sm sm:text-base',
+} as const;
+
+const TITLE_PADDING = {
+  sm: 'p-3',
+  lg: 'p-4',
+} as const;
+
+const HEADING_CLASS = {
+  sm: 'text-lg',
+  lg: 'text-xl sm:text-2xl',
+} as const;
+
+const IMAGE_SIZES = {
+  sm: '(min-width: 640px) 256px, 224px',
+  lg: '(min-width: 1024px) 384px, (min-width: 640px) 320px, 288px',
+} as const;
+
 export default function PortfolioSection({
   category,
   label,
@@ -38,6 +64,7 @@ export default function PortfolioSection({
   viewAllUrl,
   viewAllLabel,
   locale,
+  size = 'sm',
 }: PortfolioSectionProps) {
   const hasItems = items.length > 0;
   const hasPlaylist = !!playlistUrl;
@@ -78,64 +105,22 @@ export default function PortfolioSection({
 
   if (!hasItems && !hasPlaylist && !hasViewAll) return null;
 
+  const cardSizeClass = CARD_CLASS[size];
+  const titleSizeClass = TITLE_CLASS[size];
+  const titlePadding = TITLE_PADDING[size];
+  const headingClass = HEADING_CLASS[size];
+  const imageSizes = IMAGE_SIZES[size];
+
   return (
     <section id={category} aria-labelledby={`${category}-heading`} className="scroll-mt-20">
       {/* Section header */}
       <div className="mb-5 flex items-center justify-between gap-3">
         <h2
           id={`${category}-heading`}
-          className="text-lg font-bold text-neutral-900 tracking-tight"
+          className={`${headingClass} font-bold tracking-tight text-neutral-900`}
         >
           {label}
         </h2>
-
-        <div className="flex items-center gap-2">
-          {hasViewAll ? (
-            <Link
-              href={viewAllUrl!}
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-400 hover:text-neutral-900 transition-colors"
-            >
-              {viewAllLabel}
-              <svg
-                aria-hidden="true"
-                className="w-3 h-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </Link>
-          ) : hasPlaylist ? (
-            <a
-              href={playlistUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-400 hover:text-neutral-900 transition-colors"
-            >
-              {playlistLabel}
-              <svg
-                aria-hidden="true"
-                className="w-3 h-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </a>
-          ) : null}
-        </div>
       </div>
 
       {/* Horizontal scroll row */}
@@ -157,7 +142,7 @@ export default function PortfolioSection({
                     href={item.youtubeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex w-56 flex-shrink-0 snap-start flex-col overflow-hidden rounded-lg border border-neutral-100 bg-white shadow-sm transition-shadow hover:shadow-md sm:w-64"
+                    className={`group flex ${cardSizeClass} flex-shrink-0 snap-start flex-col overflow-hidden rounded-lg border border-neutral-100 bg-white shadow-sm transition-shadow hover:shadow-md`}
                   >
                     <div className="relative aspect-video w-full overflow-hidden bg-neutral-100">
                       {thumbnailSrc ? (
@@ -165,7 +150,7 @@ export default function PortfolioSection({
                           src={thumbnailSrc}
                           alt={title}
                           fill
-                          sizes="(min-width: 640px) 256px, 224px"
+                          sizes={imageSizes}
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                       ) : (
@@ -198,12 +183,65 @@ export default function PortfolioSection({
                         </svg>
                       </div>
                     </div>
-                    <div className="p-3">
-                      <p className="line-clamp-2 text-xs font-medium text-neutral-800 leading-snug">{title}</p>
+                    <div className={titlePadding}>
+                      <p className={`line-clamp-2 ${titleSizeClass} font-medium leading-snug text-neutral-800`}>
+                        {title}
+                      </p>
                     </div>
                   </a>
                 );
               })}
+
+              {/* Dashed end card: internal "view all" or external playlist */}
+              {hasViewAll ? (
+                <Link
+                  href={viewAllUrl!}
+                  className={`group flex ${cardSizeClass} flex-shrink-0 snap-start items-center justify-center rounded-lg border border-dashed border-neutral-300 bg-neutral-50/60 transition-colors hover:border-neutral-400 hover:bg-neutral-100`}
+                  aria-label={viewAllLabel}
+                >
+                  <div className="flex flex-col items-center gap-3 px-4 py-6 text-neutral-400 transition-colors group-hover:text-neutral-700">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 transition-colors group-hover:border-neutral-500">
+                      <svg
+                        aria-hidden="true"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
+                    </span>
+                    <span className="text-sm font-semibold">{viewAllLabel}</span>
+                  </div>
+                </Link>
+              ) : hasPlaylist ? (
+                <a
+                  href={playlistUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group flex ${cardSizeClass} flex-shrink-0 snap-start items-center justify-center rounded-lg border border-dashed border-neutral-300 bg-neutral-50/60 transition-colors hover:border-neutral-400 hover:bg-neutral-100`}
+                  aria-label={playlistLabel}
+                >
+                  <div className="flex flex-col items-center gap-3 px-4 py-6 text-neutral-400 transition-colors group-hover:text-neutral-700">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 transition-colors group-hover:border-neutral-500">
+                      <svg
+                        aria-hidden="true"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                      >
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                      </svg>
+                    </span>
+                    <span className="text-sm font-semibold">{playlistLabel}</span>
+                  </div>
+                </a>
+              ) : null}
             </div>
           </div>
 

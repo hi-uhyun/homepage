@@ -44,13 +44,19 @@ export interface SNSLinks {
   email: string;
 }
 
+export interface BioContent {
+  intro: string;
+  highlights: string[];
+  outro: string;
+}
+
 export interface Profile {
   name_ko: string;
   name_en: string;
   tagline_ko: string;
   tagline_en: string;
-  bio_ko: string;
-  bio_en: string;
+  bio_ko: BioContent;
+  bio_en: BioContent;
   profileImageUrl: string;
   demoReelUrl: string;
   career: CareerItem[];
