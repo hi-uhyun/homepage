@@ -8,6 +8,7 @@ const DEFAULT_VOLUME = 0.35;
 export default function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [hasEverPlayed, setHasEverPlayed] = useState(false);
   const wasPlayingBeforeDuckRef = useRef(false);
 
   useEffect(() => {
@@ -47,7 +48,12 @@ export default function BackgroundMusic() {
       );
     }
 
-    const onPlay = () => setIsPlaying(true);
+    if (pref === 'on' || pref === 'off') setHasEverPlayed(true);
+
+    const onPlay = () => {
+      setIsPlaying(true);
+      setHasEverPlayed(true);
+    };
     const onPause = () => setIsPlaying(false);
     audio.addEventListener('play', onPlay);
     audio.addEventListener('pause', onPause);
@@ -113,24 +119,37 @@ export default function BackgroundMusic() {
         preload="auto"
         aria-hidden="true"
       />
-      <button
-        type="button"
-        onClick={toggle}
-        aria-label={isPlaying ? '배경음악 일시정지' : '배경음악 재생'}
-        aria-pressed={isPlaying}
-        className="fixed bottom-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white/80 text-neutral-700 shadow-lg backdrop-blur transition-colors hover:bg-white hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900"
-      >
-        {isPlaying ? (
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <rect x="4" y="3" width="3" height="10" rx="0.5" />
-            <rect x="9" y="3" width="3" height="10" rx="0.5" />
-          </svg>
-        ) : (
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M5 3.5v9a.5.5 0 0 0 .77.42l7-4.5a.5.5 0 0 0 0-.84l-7-4.5A.5.5 0 0 0 5 3.5z" />
-          </svg>
+      <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2">
+        {!hasEverPlayed && (
+          <span className="rounded-full bg-neutral-900/80 px-3 py-1 text-xs font-medium text-white shadow-md backdrop-blur animate-pulse">
+            🎵 음악 켜기
+          </span>
         )}
-      </button>
+        <button
+          type="button"
+          onClick={toggle}
+          aria-label={isPlaying ? '배경음악 일시정지' : '배경음악 재생'}
+          aria-pressed={isPlaying}
+          className="relative flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white/80 text-neutral-700 shadow-lg backdrop-blur transition-colors hover:bg-white hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900"
+        >
+          {!hasEverPlayed && (
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inline-flex h-full w-full rounded-full bg-neutral-900 opacity-30 animate-ping"
+            />
+          )}
+          {isPlaying ? (
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <rect x="4" y="3" width="3" height="10" rx="0.5" />
+              <rect x="9" y="3" width="3" height="10" rx="0.5" />
+            </svg>
+          ) : (
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M5 3.5v9a.5.5 0 0 0 .77.42l7-4.5a.5.5 0 0 0 0-.84l-7-4.5A.5.5 0 0 0 5 3.5z" />
+            </svg>
+          )}
+        </button>
+      </div>
     </>
   );
 }
